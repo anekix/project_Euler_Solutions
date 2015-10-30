@@ -1,0 +1,94 @@
+//we should store the triangle in a matrix 
+//and then apply DP from bottom up
+
+#include<iostream>
+#include<fstream>
+#include<stdlib.h>
+#include<sstream>
+
+using namespace std;
+
+int max(int a,int b){
+if(a > b) return a;
+else return b;
+}
+
+void readfile(){	
+ifstream ifile;
+ifile.open("t3.txt");
+string line;
+
+string token;
+int line_count=0;
+
+while(ifile){
+getline(ifile,line);
+line_count+=1;
+}
+
+int arr[line_count][line_count];
+int i=0;
+int j=0;
+
+
+
+for( int i =0;i<line_count;i++){
+
+for( int j=0;j<line_count;j++){
+arr[i][j]=0;
+}
+}
+ifile.clear();
+ifile.seekg(0, ios::beg);
+
+while(!ifile.eof()){
+getline(ifile,line);
+istringstream ss(line);
+while(getline(ss,token,' ')){
+arr[i][j]=atoi(token.c_str());
+
+	j=j+1;
+
+}
+i=i+1;
+j=0;
+
+}
+
+
+for( int i =0;i<line_count;i++){
+
+for( int j=0;j<line_count;j++){
+cout<<arr[i][j]<<"   ";
+}
+cout<<"\n";
+}
+
+for( int i =line_count-2;i>=0;i--){
+for( int j=0;j<line_count;j++){
+arr[i-1][j]=arr[i-1][j]+max(arr[i][j] ,arr[i][j+1]);
+
+
+}
+
+}
+
+cout<<"after performin DP: solution is in arr[0][0]"<<endl<<endl;
+
+for( int i =0;i<line_count;i++){
+
+for( int j=0;j<line_count;j++){
+cout<<arr[i][j]<<"   ";
+}
+cout<<"\n";
+}
+
+}
+
+
+int main(){
+readfile();
+
+
+return 0;
+}
