@@ -1,0 +1,37 @@
+/*observations:
+IN thjis we can easily riule out that solution for rightmost and bottommost grid points is 1 path only 
+so we build up our solution from there using dynamic programming such that if we are standing at any point in grid
+and if the grid is not any one of the right most and bottommost grid poiunts tghen the total number of paths to reach 
+the end is equla to sum of (total number of paths that we have for point below the point we are standinhg at and 
+the number of paths that we have for point to the right of the point we are standinhg at)...
+*/
+
+#include<iostream>
+using namespace std;
+int grid = 20;
+// as 20 X 20 grid has 21 X 21 grid points
+long long int dp[21][21];
+
+int main(){
+//  initiallize boundary values
+for (int i=0;i<21;i++){
+dp[i][grid]=1;
+dp[grid][i]=1;
+}
+//now calculate for inner grid points
+for( int i=grid-1;i>=0;i--){
+for( int j = grid-1;j>=0;j--){
+dp[i][j]=dp[i+1][j]+dp[i][j+1];
+}
+
+}
+// solution is stored at dp[0][0]
+for( int i =0;i<=grid;i++){
+for( int j =0;j<=grid;j++){
+cout<<dp[i][j]<<"\t";
+}
+cout<<"\n";
+}
+
+return 0;
+}
